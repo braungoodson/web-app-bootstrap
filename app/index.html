@@ -59,12 +59,27 @@
           var boot = {
             description: 'This is the description.',
             author: 'Braun Goodson',
-            title: 'My App',
-            name: 'My App',
+            title: 'Ok!',
+            name: 'Ok!',
           };
           $scope.boot = boot; 
         }
       }]);
+      var loginModule = angular.module('loginModule',[]);
+      loginModule.controller('loginController',['$scope','$http',function($scope,$http){
+	$scope.login = function () {
+		$http.post('/login',$scope.user)
+		  .success(function(d){
+		    $scope.user = d;
+		    console.log($scope.user);
+		  })
+		  .error(function(){
+		    console.log(d);
+		  });
+	}
+      }]);
     </script>
+    <!-- Socket.io -->
+    <script src='socket.io/socket.io.js'></script>
   </body>
 </html>
