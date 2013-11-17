@@ -40,12 +40,22 @@
         </div><!--/.nav-collapse -->
       </div>
     </div>
+
     <div class="container">
       <div class="starter-template">
-        <h1>Ok!</h1>
-        There should be something here.
+        <ng-view>
+                <h1>Ok!</h1>
+                There should be something here.
+        </ng-view>
       </div>
     </div><!-- /.container -->
+    <!-- Inline Templates (Partials) -->
+        <script type="text/ng-template" id="login.html">
+            <!-- Login -->
+
+        </script>
+
+
     <!-- Twitter Bootstrap -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
