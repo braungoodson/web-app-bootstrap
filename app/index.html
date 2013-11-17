@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <!-- Custom styles for this template -->
     <link href="css/starter-template.css" rel="stylesheet">
-    <link href="css/login.css" rel="stylesheet">
+    <link href="css/signin.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -36,6 +36,7 @@
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
+	    <li><a href="#signin">Signin</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -52,7 +53,15 @@
     <!-- Inline Templates (Partials) -->
         <script type="text/ng-template" id="login.html">
             <!-- Login -->
-
+      <form class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" class="form-control" placeholder="Email address" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" required>
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
         </script>
 
 
@@ -76,19 +85,20 @@
           $scope.boot = boot; 
         }
       }]);
-      var loginModule = angular.module('loginModule',[]);
-      loginModule.controller('loginController',['$scope','$http',function($scope,$http){
-	$scope.login = function () {
-		$http.post('/login',$scope.user)
-		  .success(function(d){
-		    $scope.user = d;
-		    console.log($scope.user);
-		  })
-		  .error(function(){
-		    console.log(d);
-		  });
-	}
-      }]);
+
+bootModule.config(['$routeProvider',function($routeProvider){
+	$routeProvider.when('/signin',{
+		templateUrl: 'signin.html',
+		controller: siginController
+	});
+}]);
+
+bootModule.controller('signinController',['$scope','Page',function($scope,Page){
+	// code here..
+	Page.title = 'Signin';
+}]);
+
+
     </script>
     <!-- Socket.io -->
     <script src='socket.io/socket.io.js'></script>
