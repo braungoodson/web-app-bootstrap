@@ -5,7 +5,8 @@ var fileCache = [];
 fileCache.push('app/index.html');
 fileCache.push('app/css/signin.css');
 fileCache.push('app/css/starter-template.css');
-
+fileCache.push('app/libraries/md5-min.js');
+fileCache.push('app/signin.html');
 //
 var mario = require('mario-mario');
 mario.plumbing({
@@ -14,15 +15,26 @@ mario.plumbing({
   http: {
     get: {
       '/': function (q,r,files,users) {
-        return r.setHeader('Content-Type','text/html') + r.send(files[fileCache[0]]);
+        return r.setHeader('Content-Type','text/html') 
+        + r.send(files[fileCache[0]]);
       },
       '/css/starter-template.css': function (q,r,files,users) {
-        return r.setHeader('Content-Type','text/css') + r.send(files[fileCache[2]]);
+        return r.setHeader('Content-Type','text/css') 
+        + r.send(files[fileCache[2]]);
       },
       '/css/signin.css': function (q,r,files,users) {
-        return r.setHeader('Content-Type','text/css') + r.send(files[fileCache[1]]);
+        return r.setHeader('Content-Type','text/css') 
+        + r.send(files[fileCache[1]]);
       },
-      '/signin/:token': function (q,r,files,users) {
+      '/libraries/md5-min.js': function (q,r,files,users) {
+        return r.setHeader('Content-Type','text/css') 
+        + r.send(files[fileCache[3]]);
+      },
+      '/signin': function (q,r,files,users) {
+        return r.setHeader('Content-Type','text/html') 
+        + r.send(files[fileCache[4]]);
+      },
+      '/signin/:hash': function (q,r,files,users) {
         // if user exists
         // if user does not exist
         // if password is correct
@@ -31,7 +43,8 @@ mario.plumbing({
 
         */
         console.log(q.params.token);
-        return r.setHeader('Content-Type','application/json') + r.send({name:'braungoodson@gmail.com'});
+        return r.setHeader('Content-Type','application/json') 
+        + r.send({name:'braungoodson@gmail.com'});
       }
     },
     post: {
@@ -44,7 +57,8 @@ mario.plumbing({
 
         */
         console.log(q.params);
-        return r.setHeader('Content-Type','application/json') + r.send({name:'braungoodson@gmail.com'});
+        return r.setHeader('Content-Type','application/json') 
+        + r.send({name:'braungoodson@gmail.com'});
       }
     }
   }
