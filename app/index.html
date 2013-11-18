@@ -56,11 +56,13 @@
       <form class="form-signin" ng-controller="signinController">
         <h2 class="form-signin-heading">Please sign in</h2>
         <input type="text" class="form-control" placeholder="Email address" ng-model="name" required autofocus>
-        <input type="password" class="form-control" placeholder="Password" ng-model=="password" required>
+        <input type="password" class="form-control" placeholder="Password" ng-model="password" required>
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me
         </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="signin(name,password)">Sign in</button>
+        <input type="hidden" value="{{data.salt}}">
+        <input type="hidden" value="{{data.challenge}}">
+        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="signin(name,password,salt,chellenge)">Sign in</button>
       </form>
     </script>
     <!-- Twitter Bootstrap -->
@@ -92,17 +94,37 @@
         }
       }]);
       bootModule.controller('signinController',['$scope','$http',function($scope,$http){
+        $scope.data = {};
+        $scope.init = function () {
+          $http
+            .get('/signin')
+            .success(function(data,status,headers,config){
+              console.log(headers)
+              $scope.data.challenge = headers('X-Challenge');
+              $scope.data.salt = headers('X-Salt');
+              console.log("New Challenge!");
+            })
+            .error(function(data,status,headers,config){
+              console.log("Signin fail.");
+              $scope.data.challenge = null;
+              $scope.data.salt = null;
+            });
+        };
         $scope.signin = function (name,password) {
-          var sha1 = function () {
-
-          }
-          var hash = function () {
-            return sha1(name+":"+password);
-          }
-          $http.post('/signin',{hash:hash()}).success(function(){console.log('success')}).error(function(){console.log('error')});
+          console.log(password,$scope.data);
+          var hash = hex_hmac_sha1(password,$scope.data.salt);
+          hash = hex_hmac_sha1(hash,$scope.data.challenge);
+          $http
+            .get('/signin/name/'+name+'/hash/'+hash)
+            .success(function(data,status,headers,config){
+              // TODO: redirect to a page
+              console.log('Signin Success!');
+            })
+            .error(function(data,status,headers,config){
+              console.log('Signin fail (2).');
+            })
         }
-
-        $scope.user.name = "Braun Goodson"
+        $scope.init();
       }]);
     </script>
     <!-- Socket.io -->

@@ -8,6 +8,9 @@ fileCache.push('app/css/starter-template.css');
 fileCache.push('app/libraries/sha1-min.js');
 
 //
+var hex_hmac_sha1 = require('sha1-min-0.0.1');
+
+//
 var mario = require('mario-mario');
 mario.plumbing({
   port: process.env.PORT || 10000,
@@ -30,17 +33,31 @@ mario.plumbing({
         return r.setHeader('Content-Type','text/css') 
         + r.send(files[fileCache[3]]);
       },
-      '/signin/:hash': function (q,r,files,users) {
-        // if user exists
-        // if user does not exist
-        // if password is correct
-        // if password is incorrect
-        /*
-
-        */
-        console.log(q.params.token);
+      '/signin': function (q,r,files,users) {
+        var challenge = new Date().getTime();
+        var salt = 'This is the salt.';
+        q.session.challenge = challenge;
+        console.log("New Challenge!");
+        return r.setHeader('X-Challenge',challenge) 
+        + r.setHeader('X-Salt',salt)
+        + r.send('');
+      },
+      '/signin/name/:name/hash/:hash': function (q,r,files,users) {
+        var signin = false;
+        var hash = q.params.hash;
+        var challenge = q.session.challenge;
+        var salt = 'This is the salt.';
+        var user = users[q.params.name];
+        var h = hex_hmac_sha1(user.password,salt);
+        h = hex_hmac_sha1(h,challenge);
+        if (h == hash) {
+          signin = true
+        } else {
+          signin = false;
+        }
+        q.session.challenge = new Date().getTime();
         return r.setHeader('Content-Type','application/json') 
-        + r.send({name:'braungoodson@gmail.com'});
+        + r.send({signin:signin});
       }
     },
     post: {}
