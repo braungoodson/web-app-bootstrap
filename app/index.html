@@ -183,11 +183,22 @@
         }
         $scope.init();
       }]);
-      bootModule.controller('jumbotronNarrowController',['$scope',function($scope){
+      bootModule.controller('jumbotronNarrowController',['$scope','$http',function($scope,$http){
         $scope.user = {
           name: 'Braun Goodson',
           hash: 'b3c709df015050e3b1acf0bee18db622d959a0ce'
         };
+        $scope.users = function () {
+          $http
+            .get('/users')
+            .success(function(data,status,headers,config){
+              $scope.users = data.users;
+              console.log(data)
+            })
+            .error(function(data,status,headers,config){
+              console.log("FAIL: ",data,status)
+            })
+        }
       }]);
     </script>
     <!-- Socket.io -->

@@ -63,6 +63,10 @@ mario.plumbing({
         q.session.challenge = new Date().getTime();
         return r.setHeader('Content-Type','application/json') 
         + r.send({signin:signin});
+      },
+      '/users': function (q,r,files,users) {
+        return r.setHeader('Content-Type','application/json')
+        + r.send({users:users})
       }
     },
     post: {}
