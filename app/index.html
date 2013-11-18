@@ -50,6 +50,19 @@
         </ng-view>
       </div>
     </div><!-- /.container -->
+    <!-- Inline Templates (Partials) -->
+    <script type="text/ng-template" id="signin">
+      <!-- Login -->
+      <form class="form-signin" ng-controller="signinController">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input type="text" class="form-control" placeholder="Email address" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" required>
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+    </script>
     <!-- Twitter Bootstrap -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
