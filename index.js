@@ -6,6 +6,7 @@ fileCache.push('app/index.html');
 fileCache.push('app/css/signin.css');
 fileCache.push('app/css/starter-template.css');
 fileCache.push('app/libraries/sha1-min.js');
+fileCache.push('app/css/jumbotron-narrow.css');
 
 //
 var hex_hmac_sha1 = require('sha1-min-0.0.1');
@@ -32,6 +33,10 @@ mario.plumbing({
       '/libraries/sha1-min.js': function (q,r,files,users) {
         return r.setHeader('Content-Type','text/css') 
         + r.send(files[fileCache[3]]);
+      },
+      '/css/jumbotron-narrow.css': function (q,r,files,users) {
+        return r.setHeader('Content-Type','text/css') 
+        + r.send(files[fileCache[4]]);
       },
       '/signin': function (q,r,files,users) {
         var challenge = new Date().getTime();
