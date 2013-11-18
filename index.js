@@ -21,6 +21,30 @@ mario.plumbing({
       },
       '/css/signin.css': function (q,r,files,users) {
         return r.setHeader('Content-Type','text/css') + r.send(files[fileCache[1]]);
+      },
+      '/signin/:token': function (q,r,files,users) {
+        // if user exists
+        // if user does not exist
+        // if password is correct
+        // if password is incorrect
+        /*
+
+        */
+        console.log(q.params.token);
+        return r.setHeader('Content-Type','application/json') + r.send({name:'braungoodson@gmail.com'});
+      }
+    },
+    post: {
+      '/signin': function (q,r,files,users) {
+        // if user exists
+        // if user does not exist
+        // if password is correct
+        // if password is incorrect
+        /*
+
+        */
+        console.log(q.params);
+        return r.setHeader('Content-Type','application/json') + r.send({name:'braungoodson@gmail.com'});
       }
     }
   }
