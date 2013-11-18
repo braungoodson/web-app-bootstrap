@@ -16,6 +16,7 @@
     "url": "https://github.com/braungoodson/web-app-bootstrap/issues"
   },
   "dependencies": {
+    "sha1-min-0.0.1": "0.0.1",
     "mario-mario": "0.0.4"
   }
 }
