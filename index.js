@@ -64,9 +64,9 @@ mario.plumbing({
         return r.setHeader('Content-Type','application/json') 
         + r.send({signin:signin});
       },
-      '/users': function (q,r,files,users) {
-        return r.setHeader('Content-Type','application/json')
-        + r.send({users:users})
+      '/users': function (q,r,files,_users) {
+        r.setHeader('Content-Type','application/json');
+        r.send({users:_users})
       }
     },
     post: {}
