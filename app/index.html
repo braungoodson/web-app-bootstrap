@@ -55,19 +55,19 @@
       <!-- Login -->
       <form class="form-signin" ng-controller="signinController">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" class="form-control" placeholder="Email address" required autofocus>
-        <input type="password" class="form-control" placeholder="Password" required>
+        <input type="text" class="form-control" placeholder="Email address" ng-model="name" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" ng-model=="password" required>
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me
         </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="signin(name,password)">Sign in</button>
       </form>
     </script>
     <!-- Twitter Bootstrap -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-    <!-- MD5 -->
-    <script src="libraries/md5-min.js"></script>    
+    <!-- SHA1 -->
+    <script src="libraries/sha1-min.js"></script>    
     <!-- AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
     <!-- Web-App-Bootstrap -->
@@ -92,8 +92,14 @@
         }
       }]);
       bootModule.controller('signinController',['$scope','$http',function($scope,$http){
-        $scope.signin = function () {
-          $http.post('/signin',$scope).success(function(){console.log('success')}).error(function(){console.log('error')});
+        $scope.signin = function (name,password) {
+          var sha1 = function () {
+
+          }
+          var hash = function () {
+            return sha1(name+":"+password);
+          }
+          $http.post('/signin',{hash:hash()}).success(function(){console.log('success')}).error(function(){console.log('error')});
         }
 
         $scope.user.name = "Braun Goodson"

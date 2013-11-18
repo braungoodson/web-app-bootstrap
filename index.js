@@ -5,7 +5,7 @@ var fileCache = [];
 fileCache.push('app/index.html');
 fileCache.push('app/css/signin.css');
 fileCache.push('app/css/starter-template.css');
-fileCache.push('app/libraries/md5-min.js');
+fileCache.push('app/libraries/sha1-min.js');
 
 //
 var mario = require('mario-mario');
@@ -26,7 +26,7 @@ mario.plumbing({
         return r.setHeader('Content-Type','text/css') 
         + r.send(files[fileCache[1]]);
       },
-      '/libraries/md5-min.js': function (q,r,files,users) {
+      '/libraries/sha1-min.js': function (q,r,files,users) {
         return r.setHeader('Content-Type','text/css') 
         + r.send(files[fileCache[3]]);
       },
