@@ -28,19 +28,19 @@ mario.plumbing({
     get: {
       '/': function (q,r) {
         return r.setHeader('Content-Type','text/html') 
-        + r.send(files[0]);
+        + r.send(files[fileNames[0]]);
       },
       '/css/starter-template.css': function (q,r) {
         return r.setHeader('Content-Type','text/css') 
-        + r.send(files[2]);
+        + r.send(files[fileNames[2]]);
       },
       '/css/signin.css': function (q,r) {
         return r.setHeader('Content-Type','text/css') 
-        + r.send(files[1]);
+        + r.send(files[fileNames[1]]);
       },
       '/libraries/sha1-min.js': function (q,r) {
         return r.setHeader('Content-Type','text/css') 
-        + r.send(files[3]);
+        + r.send(files[fileNames[3]]);
       },
       '/signin': function (q,r) {
         var challenge = new Date().getTime();
