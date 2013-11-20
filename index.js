@@ -1,5 +1,6 @@
 /**/
 
+//
 var fs = require('fs');
 var fileNames = ['app/index.html'
 ,'app/css/signin.css'
@@ -10,13 +11,18 @@ var files = [];
 for (var i in fileNames) {
   (function(file){fs.readFile(file,function(e,d){
         if (e) {
-          console.log('Error: Could not read file: %s from:\n %s',e,file);
+          console.log('Error: Could not read file: %s from:\n %s'
+            ,e,file);
         } else {
           files[file] = d;
           console.log('Cached: %s',file);
         }
       });}(fileNames[i]))
 }
+
+//
+var users = [];
+users['braun'] = {name:'braun',password:'braun'};
 
 //
 var hex_hmac_sha1 = require('sha1-min-0.0.1');
@@ -57,16 +63,22 @@ mario.plumbing({
         var challenge = q.session.challenge;
         var salt = 'This is the salt.';
         var user = users[q.params.name];
-        var h = hex_hmac_sha1(user.password,salt);
-        h = hex_hmac_sha1(h,challenge);
-        if (h == hash) {
-          signin = true
+        if (user) {
+          var h = hex_hmac_sha1(user.password,salt);
+          h = hex_hmac_sha1(h,challenge);
+          q.session.challenge = new Date().getTime();
+          if (h == hash) {
+            //signin = true
+            return r.setHeader('Content-Type','application/json') 
+            + r.send({signin:signin});
+          } else {
+            //signin = false;
+            return r.redirect(403,'/signin');
+          }
         } else {
-          signin = false;
+          q.session.challenge = new Date().getTime();
+          return r.redirect(403,'/signin');
         }
-        q.session.challenge = new Date().getTime();
-        return r.setHeader('Content-Type','application/json') 
-        + r.send({signin:signin});
       }
     }
   }
