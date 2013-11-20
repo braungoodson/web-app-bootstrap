@@ -6,6 +6,7 @@ var fileNames = ['app/index.html'
 ,'app/css/starter-template.css'
 ,'app/libraries/sha1-min.js'
 ];
+var files = [];
 for (var i in fileNames) {
 fs.readFile(fileNames[i],function(e,d){
 	if (e) {
