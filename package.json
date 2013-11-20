@@ -17,6 +17,6 @@
   },
   "dependencies": {
     "sha1-min-0.0.1": "0.0.1",
-    "mario-mario": "0.0.7"
+    "mario-mario": "0.0.7-lite"
   }
 }
