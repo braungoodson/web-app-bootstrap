@@ -1,6 +1,7 @@
 /**/
 
 //
+<<<<<<< HEAD
 var fs = require('fs');
 var fileNames = ['app/index.html'
 ,'app/css/signin.css'
@@ -23,9 +24,6 @@ for (var i in fileNames) {
 //
 var users = [];
 users['braun'] = {name:'braun',password:'braun',data:null,getUser:function(){return{name:this.name,data:this.data}}};
-
-//
-var hex_hmac_sha1 = require('sha1-min-0.0.1');
 
 //
 var mario = require('mario-mario');

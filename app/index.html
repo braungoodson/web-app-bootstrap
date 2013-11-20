@@ -13,6 +13,7 @@
     <!-- Custom styles for this template -->
     <link href="css/starter-template.css" rel="stylesheet">
     <link href="css/signin.css" rel="stylesheet">
+    <link href="css/jumbotron-narrow.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -41,33 +42,82 @@
         </div><!--/.nav-collapse -->
       </div>
     </div>
+    <ng-view>
+      <div class="container">
+        <div class="starter-template">
 
-    <div class="container">
-      <div class="starter-template">
-        <ng-view>
-                <h1>Ok!</h1>
-                There should be something here.
-        </ng-view>
-      </div>
-    </div><!-- /.container -->
+                  <h1>Ok!</h1>
+                  There should be something here.
+
+        </div>
+      </div><!-- /.container -->
+    </ng-view>
     <!-- Inline Templates (Partials) -->
     <script type="text/ng-template" id="signin">
-      <!-- Login -->
-      <form class="form-signin" ng-controller="signinController">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" class="form-control" placeholder="Email address" ng-model="name" required autofocus>
-        <input type="password" class="form-control" placeholder="Password" ng-model="password" required>
-        <label class="checkbox">
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="signin(name,password,salt,chellenge)">Sign in</button>
-      </form>
+      <div style="margin-top:50px">
+        <form class="form-signin" ng-controller="signinController">
+          <h2 class="form-signin-heading">Please sign in</h2>
+          <input type="text" class="form-control" placeholder="Email address" ng-model="name" required autofocus>
+          <input type="password" class="form-control" placeholder="Password" ng-model="password" required>
+          <label class="checkbox">
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+          <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="signin(name,password,salt,chellenge)">Sign in</button>
+        </form>
+      </div>
+    </script>
+    <script type="text/ng-template" id="jumbotron-narrow">
+      <div style="margin-top:50px">
+        <div class="container" ng-controller="jumbotronNarrowController">
+          <div class="header">
+            <ul class="nav nav-pills pull-right">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+            <h3 class="text-muted"><span>{{user.name}}</span></h3>
+          </div>
+
+          <div class="jumbotron">
+            <h1>Jumbotron heading</h1>
+            <p class="lead">{{user.hash}}</p>
+            <p><a class="btn btn-lg btn-success" href="#" role="button">publish</a></p>
+          </div>
+
+          <div class="row marketing">
+            <div class="col-lg-6">
+              <h4>Subheading</h4>
+              <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+              <h4>Subheading</h4>
+              <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+              <h4>Subheading</h4>
+              <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+            </div>
+
+            <div class="col-lg-6">
+              <h4>Subheading</h4>
+              <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+              <h4>Subheading</h4>
+              <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+              <h4>Subheading</h4>
+              <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+            </div>
+          </div>
+
+          <div class="footer">
+            <p>&copy; Company 2013</p>
+          </div>
+
+        </div> <!-- /container -->
+      </div>
     </script>
     <!-- Twitter Bootstrap -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-    <!-- SHA1 -->
-    <script src="libraries/sha1-min.js"></script>    
     <!-- AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
     <!-- Web-App-Bootstrap -->
@@ -77,7 +127,12 @@
         $routeProvider.when('/signin',{
           templateUrl: 'signin',
           controller: 'signinController'
-        }).otherwise({redirectTo:'/signin'});
+        })
+        .when('/jumbotron-narrow',{
+          templateUrl: 'jumbotron-narrow',
+          controller: 'jumbotronNarrowController'
+        })
+        .otherwise({redirectTo:'/signin'});
       }]);
       bootModule.controller('bootController',['$scope',function($scope){
         init();
@@ -102,6 +157,23 @@
             })
             .error(function(data,status,headers,config){
               console.log('Signin fail (2).');
+            })
+        }
+      }]);
+      bootModule.controller('jumbotronNarrowController',['$scope','$http',function($scope,$http){
+        $scope.user = {
+          name: 'Braun Goodson',
+          hash: 'b3c709df015050e3b1acf0bee18db622d959a0ce'
+        };
+        $scope.users = function () {
+          $http
+            .get('/users')
+            .success(function(data,status,headers,config){
+              $scope.users = data.users;
+              console.log(data)
+            })
+            .error(function(data,status,headers,config){
+              console.log("FAIL: ",data,status)
             })
         }
       }]);
