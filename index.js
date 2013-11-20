@@ -8,14 +8,14 @@ var fileNames = ['app/index.html'
 ];
 var files = [];
 for (var i in fileNames) {
-fs.readFile(fileNames[i],function(e,d){
-	if (e) {
-		console.log('Error: Could not read file: %s from:\n %s',e,fileNames[i]);
-	} else {
-		files[fileNames[i]] = d;
-		console.log('Cached: %s',fileNames[i]);
-	}
-});
+  (function(file){fs.readFile(file,function(e,d){
+        if (e) {
+          console.log('Error: Could not read file: %s from:\n %s',e,file);
+        } else {
+          files[file] = d;
+          console.log('Cached: %s',file);
+        }
+      });}(fileNames[i]))
 }
 
 //
