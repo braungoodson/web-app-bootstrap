@@ -94,24 +94,9 @@
         }
       }]);
       bootModule.controller('signinController',['$scope','$http',function($scope,$http){
-        $scope.data = {};
-        $scope.init = function () {
-          $http
-            .get('/signin')
-            .success(function(data,status,headers,config){
-              $scope.data.challenge = headers('X-Challenge');
-              $scope.data.salt = headers('X-Salt');
-            })
-            .error(function(data,status,headers,config){
-              $scope.data.challenge = null;
-              $scope.data.salt = null;
-            });
-        };
         $scope.signin = function (name,password) {
-          var hash = hex_hmac_sha1(password,$scope.data.salt);
-          hash = hex_hmac_sha1(hash,$scope.data.challenge);
           $http
-            .get('/signin/name/'+name+'/hash/'+hash)
+            .get('/signin/'+name+'/'+password)
             .success(function(data,status,headers,config){
               // TODO: redirect to a page
               console.log('Signin Success!');
@@ -120,7 +105,6 @@
               console.log('Signin fail (2).');
             })
         }
-        $scope.init();
       }]);
     </script>
     <!-- Socket.io -->
