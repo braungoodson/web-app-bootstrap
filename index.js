@@ -52,6 +52,7 @@ mario.plumbing({
         if (users[q.params.name]) {
           if (users[q.params.name].password == q.params.password) {
             var user = users[q.params.name].getUser();
+            q.session.signedin = true;
             return r.setHeader('Content-Type','application/json')
             + r.send(200,{user:user});
           }

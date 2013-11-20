@@ -60,8 +60,6 @@
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Remember me
         </label>
-        <input type="hidden" value="{{data.salt}}">
-        <input type="hidden" value="{{data.challenge}}">
         <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="signin(name,password,salt,chellenge)">Sign in</button>
       </form>
     </script>
@@ -93,12 +91,13 @@
           $scope.boot = boot; 
         }
       }]);
-      bootModule.controller('signinController',['$scope','$http',function($scope,$http){
+      bootModule.controller('signinController',['$scope','$http','$rootScope',function($scope,$http,$rootScope){
         $scope.signin = function (name,password) {
           $http
             .get('/signin/'+name+'/'+password)
             .success(function(data,status,headers,config){
               // TODO: redirect to a page
+              $rootScope.user = data.user;
               console.log('Signin Success!');
             })
             .error(function(data,status,headers,config){
