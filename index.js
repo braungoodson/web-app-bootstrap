@@ -1,18 +1,18 @@
 /**/
 
 var fs = require('fs');
-var filesNames = ['app/index.html'
+var fileNames = ['app/index.html'
 ,'app/css/signin.css'
 ,'app/css/starter-template.css'
 ,'app/libraries/sha1-min.js'
 ];
 for (var i in fileNames) {
-fs.readFile(filesNames[i],function(e,d){
+fs.readFile(fileNames[i],function(e,d){
 	if (e) {
 		console.log('Error: Could not read file: %s from:\n %s',e,fileNames[i]);
 	} else {
 		files[fileNames[i]] = d;
-		console.log('Cached: %s",fileNames[i]);
+		console.log('Cached: %s',fileNames[i]);
 	}
 });
 }
