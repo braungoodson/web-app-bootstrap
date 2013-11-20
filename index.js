@@ -58,15 +58,21 @@ mario.plumbing({
         + r.send({challenge:challenge,salt:salt});
       },
       '/signin/name/:name/hash/:hash': function (q,r) {
+        console.log('Signin: name=%s&hash=%s'
+          ,q.params.name,q.params.hash);
         var signin = false;
         var hash = q.params.hash;
-        var challenge = q.session.challenge;
+        console.log('SigninSession: challenge=%s',q.session.challenge);
+        var challenge = q.session.challenge||new Date().getTime();
+        q.session.challenge = new Date().getTime();
         var salt = 'This is the salt.';
         var user = users[q.params.name];
-        if (user) {
+        if (user && user.name && user.password) {
+          console.log('User: name=%s&password=%s',user.name,user.password);
           var h = hex_hmac_sha1(user.password,salt);
           h = hex_hmac_sha1(h,challenge);
-          q.session.challenge = new Date().getTime();
+          console.log('Variables: user.password=%s&salt=%s&challenge=%s',user.password,salt,challenge)
+          console.log('Hashes: given=%s&processed=%s',hash,h);
           if (h == hash) {
             //signin = true
             return r.setHeader('Content-Type','application/json') 
@@ -76,7 +82,6 @@ mario.plumbing({
             return r.redirect(403,'/signin');
           }
         } else {
-          q.session.challenge = new Date().getTime();
           return r.redirect(403,'/signin');
         }
       }
