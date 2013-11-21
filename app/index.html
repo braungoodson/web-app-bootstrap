@@ -45,7 +45,7 @@
     <ng-view></ng-view>
     <!-- Inline Templates (Partials) -->
     <script type="text/ng-template" id="Ok!">
-      <div class="container">
+      <div class="container" style="margin-top:50px">
         <div class="starter-template">
             <h1>Ok!</h1>
             There should be something here.
@@ -137,7 +137,6 @@
         .otherwise({redirectTo:'/Ok!'});
       }]);
       bootModule.controller('Ok!Controller',['$scope',function($scope){
-
       }]);
       bootModule.controller('bootController',['$scope',function($scope){
         init();
@@ -166,10 +165,10 @@
             })
         }
       }]);
-      bootModule.controller('jumbotronNarrowController',['$scope','$http',function($scope,$http){
-        $scope.user = {
+      bootModule.controller('jumbotronNarrowController',['$scope','$http','$rootScope',function($scope,$http,$rootScope){
+        $scope.user = $rootScope.user || {
           name: 'Braun Goodson',
-          hash: 'b3c709df015050e3b1acf0bee18db622d959a0ce'
+          data: 'b3c709df015050e3b1acf0bee18db622d959a0ce'
         };
         $scope.users = function () {
           $http
