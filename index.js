@@ -5,7 +5,6 @@ var fs = require('fs');
 var fileNames = ['app/index.html'
 ,'app/css/starter-template.css'
 ,'app/css/signin.css'
-,'app/css/jumbotron-narrow.css'
 ];
 var files = [];
 for (var i in fileNames) {
@@ -38,10 +37,6 @@ mario.plumbing({
         + r.send(files[fileNames[2]]);
       },
       '/css/signin.css': function (q,r) {
-        return r.setHeader('Content-Type','text/css') 
-        + r.send(files[fileNames[1]]);
-      },
-      '/css/jumbotron-narrow.css': function (q,r) {
         return r.setHeader('Content-Type','text/css') 
         + r.send(files[fileNames[1]]);
       },
