@@ -21,7 +21,15 @@ for (var i in fileNames) {
 
 //
 var users = [];
-users['braun'] = {name:'braun',password:'braun',data:null,getUser:function(){return{name:this.name,data:this.data}}};
+users['braun'] = {name:'braun',password:'braun',data:{
+  name: 'Braun Goodson',
+  facePhoto: null,
+  facePhotoIcon: null,
+  playPhoto: null,
+  thumbsUp: 0,
+  thumbsDown: 0,
+  connections: 0
+},getUser:function(){return{name:this.name,data:this.data}}};
 
 //
 var mario = require('mario-mario');
