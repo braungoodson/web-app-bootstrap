@@ -1,12 +1,11 @@
 /**/
 
 //
-<<<<<<< HEAD
 var fs = require('fs');
 var fileNames = ['app/index.html'
-,'app/css/signin.css'
 ,'app/css/starter-template.css'
-,'app/libraries/sha1-min.js'
+,'app/css/signin.css'
+,'app/css/jumbotron-narrow.css'
 ];
 var files = [];
 for (var i in fileNames) {
@@ -42,15 +41,16 @@ mario.plumbing({
         return r.setHeader('Content-Type','text/css') 
         + r.send(files[fileNames[1]]);
       },
-      '/libraries/sha1-min.js': function (q,r) {
+      '/css/jumbotron-narrow.css': function (q,r) {
         return r.setHeader('Content-Type','text/css') 
-        + r.send(files[fileNames[3]]);
+        + r.send(files[fileNames[1]]);
       },
       '/signin/:name/:password': function (q,r) {
         if (users[q.params.name]) {
           if (users[q.params.name].password == q.params.password) {
             var user = users[q.params.name].getUser();
             q.session.signedin = true;
+            q.session.user = user;
             return r.setHeader('Content-Type','application/json')
             + r.send(200,{user:user});
           }

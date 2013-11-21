@@ -9,11 +9,11 @@
     <link rel="shortcut icon" href="images/favicon.png">
     <title>{{boot.title}}</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://getbootstrap.com/dist/css/bootstrap.css">
     <!-- Custom styles for this template -->
     <link href="css/starter-template.css" rel="stylesheet">
     <link href="css/signin.css" rel="stylesheet">
-    <link href="css/jumbotron-narrow.css" rel="stylesheet">
+    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -37,22 +37,21 @@
             <li class="active"><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
-	    <li><a href="#signin">Signin</a></li>
+	          <li><a href="#signin">Signin</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
-    <ng-view>
+    <ng-view></ng-view>
+    <!-- Inline Templates (Partials) -->
+    <script type="text/ng-template" id="Ok!">
       <div class="container">
         <div class="starter-template">
-
-                  <h1>Ok!</h1>
-                  There should be something here.
-
+            <h1>Ok!</h1>
+            There should be something here.
         </div>
       </div><!-- /.container -->
-    </ng-view>
-    <!-- Inline Templates (Partials) -->
+    </script>
     <script type="text/ng-template" id="signin">
       <div style="margin-top:50px">
         <form class="form-signin" ng-controller="signinController">
@@ -67,7 +66,7 @@
       </div>
     </script>
     <script type="text/ng-template" id="jumbotron-narrow">
-      <div style="margin-top:50px">
+      <div>
         <div class="container" ng-controller="jumbotronNarrowController">
           <div class="header">
             <ul class="nav nav-pills pull-right">
@@ -121,10 +120,13 @@
     <!-- AngularJS -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
     <!-- Web-App-Bootstrap -->
-    <script>
+    <script type="text/javascript" id="web-app-boostrap">
       var bootModule = angular.module('bootModule',[]);
       bootModule.config(['$routeProvider',function($routeProvider){
-        $routeProvider.when('/signin',{
+        $routeProvider.when('/Ok!',{
+          templateUrl: 'Ok!',
+          controller: 'Ok!Controller'
+        }).when('/signin',{
           templateUrl: 'signin',
           controller: 'signinController'
         })
@@ -132,7 +134,10 @@
           templateUrl: 'jumbotron-narrow',
           controller: 'jumbotronNarrowController'
         })
-        .otherwise({redirectTo:'/signin'});
+        .otherwise({redirectTo:'/Ok!'});
+      }]);
+      bootModule.controller('Ok!Controller',['$scope',function($scope){
+        
       }]);
       bootModule.controller('bootController',['$scope',function($scope){
         init();
@@ -146,7 +151,7 @@
           $scope.boot = boot; 
         }
       }]);
-      bootModule.controller('signinController',['$scope','$http','$rootScope',function($scope,$http,$rootScope){
+      bootModule.controller('signinController',['$scope','$http','$rootScope','$location',function($scope,$http,$rootScope,$location){
         $scope.signin = function (name,password) {
           $http
             .get('/signin/'+name+'/'+password)
@@ -154,6 +159,7 @@
               // TODO: redirect to a page
               $rootScope.user = data.user;
               console.log('Signin Success!');
+              $location.path('/jumbotron-narrow');
             })
             .error(function(data,status,headers,config){
               console.log('Signin fail (2).');
