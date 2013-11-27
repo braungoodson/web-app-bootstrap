@@ -129,7 +129,7 @@
       bootModule.config(['$routeProvider',function($routeProvider){
         $routeProvider.when('/Ok!',{
           templateUrl: 'Ok!',
-          controller: 'Ok!Controller'
+          controller: 'deathcartoonsController'
         }).when('/signin',{
           templateUrl: 'signin',
           controller: 'signinController'
@@ -140,7 +140,7 @@
         })
         .otherwise({redirectTo:'/Ok!'});
       }]);
-      bootModule.controller('Ok!Controller',['$scope',function($scope){
+      bootModule.controller('deathcartoonsController',['$scope',function($scope){
       }]);
       bootModule.controller('bootController',['$scope',function($scope){
         init();

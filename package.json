@@ -18,5 +18,9 @@
   "dependencies": {
     "sha1-min-0.0.1": "0.0.1",
     "mario-mario": "0.0.7-lite"
+  },
+  "devDependencies": {
+    "mocha": "~1.14.0",
+    "assert": "~1.0.0"
   }
 }
