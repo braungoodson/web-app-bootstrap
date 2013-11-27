@@ -30,6 +30,15 @@ users['braun'] = {name:'braun',password:'braun',data:{
   thumbsDown: 0,
   connections: 0
 },getUser:function(){return{name:this.name,data:this.data}}};
+users['sam'] = {name:'sam',password:'sam',data:{
+  name: 'Sam Graham',
+  facePhoto: null,
+  facePhotoIcon: null,
+  playPhoto: null,
+  thumbsUp: 0,
+  thumbsDown: 0,
+  connections: 0
+},getUser:function(){return{name:this.name,data:this.data}}};
 
 //
 var mario = require('mario-mario');
@@ -49,16 +58,17 @@ mario.plumbing({
         + r.send(files[fileNames[1]]);
       },
       '/signin/:name/:password': function (q,r) {
-        if (users[q.params.name]) {
-          if (users[q.params.name].password == q.params.password) {
+        if (users[q.params.name]) { console.log(users[q.params.name]);
+          if (users[q.params.name].password == q.params.password) { console.log(users[q.params.name].password,q.params.password);
             var user = users[q.params.name].getUser();
             q.session.signedin = true;
             q.session.user = user;
             return r.setHeader('Content-Type','application/json')
             + r.send(200,{user:user});
           }
+          return r.send(403,'level 2');
         }
-        return r.send(403);
+        return r.send(403,'level 1');
       }
     }
   }
