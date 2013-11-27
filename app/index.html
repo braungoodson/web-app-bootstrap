@@ -51,6 +51,31 @@
             There should be something here.
         </div>
       </div><!-- /.container -->
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <h2>Heading</h2>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          </div>
+          <div class="col-md-4">
+            <h2>Heading</h2>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+         </div>
+          <div class="col-md-4">
+            <h2>Heading</h2>
+            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          </div>
+        </div>
+        <hr>
+        <footer>
+          <!-- -->
+          <p>&copy; Company 2013</p>
+        </footer>
+      </div> <!-- /container -->
     </script>
     <script type="text/ng-template" id="signin">
       <div style="margin-top:50px">
@@ -65,7 +90,7 @@
         </form>
       </div>
     </script>
-    <script type="text/ng-template" id="profile">
+    <script type="text/ng-template" id="profiles">
       <div style="margin-top:50px">
         <div class="container" ng-controller="jumbotronNarrowController">
 
@@ -134,8 +159,8 @@
           templateUrl: 'signin',
           controller: 'signinController'
         })
-        .when('/profile',{
-          templateUrl: 'profile',
+        .when('/profiles',{
+          templateUrl: 'profiles',
           controller: 'jumbotronNarrowController'
         })
         .otherwise({redirectTo:'/deathcartoons'});
@@ -162,7 +187,7 @@
               // TODO: redirect to a page
               $rootScope.user = data.user;
               console.log('Signin Success!');
-              $location.path('/jumbotron-narrow');
+              $location.path('/profiles/');
             })
             .error(function(data,status,headers,config){
               console.log('Signin fail (2).');
