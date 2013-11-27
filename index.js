@@ -58,17 +58,16 @@ mario.plumbing({
         + r.send(files[fileNames[1]]);
       },
       '/signin/:name/:password': function (q,r) {
-        if (users[q.params.name]) { console.log(users[q.params.name]);
-          if (users[q.params.name].password == q.params.password) { console.log(users[q.params.name].password,q.params.password);
+        if (users[q.params.name]) {
+          if (users[q.params.name].password == q.params.password) {
             var user = users[q.params.name].getUser();
             q.session.signedin = true;
             q.session.user = user;
             return r.setHeader('Content-Type','application/json')
             + r.send(200,{user:user});
           }
-          return r.send(403,'level 2');
         }
-        return r.send(403,'level 1');
+        return r.send(403);
       }
     }
   }

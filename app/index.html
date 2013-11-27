@@ -65,7 +65,7 @@
         </form>
       </div>
     </script>
-    <script type="text/ng-template" id="jumbotron-narrow">
+    <script type="text/ng-template" id="profile">
       <div style="margin-top:50px">
         <div class="container" ng-controller="jumbotronNarrowController">
 
@@ -134,8 +134,8 @@
           templateUrl: 'signin',
           controller: 'signinController'
         })
-        .when('/jumbotron-narrow',{
-          templateUrl: 'jumbotron-narrow',
+        .when('/profile',{
+          templateUrl: 'profile',
           controller: 'jumbotronNarrowController'
         })
         .otherwise({redirectTo:'/deathcartoons'});
