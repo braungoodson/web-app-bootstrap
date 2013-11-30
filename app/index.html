@@ -44,11 +44,12 @@
     </div>
     <ng-view></ng-view>
     <!-- Inline Templates (Partials) -->
-    <script type="text/ng-template" id="Ok!">
-      <div class="container" style="margin-top:50px">
+    <script type="text/ng-template" id="Heappit">
+      <div class="container" style="margin-top:50px" ng-controller="HeappitController">
         <div class="starter-template">
-            <h1>Ok!</h1>
+            <h1>Heappit</h1>
             There should be something here.
+            <p ng-repeat="i in heap">{{i}}</p>
         </div>
       </div><!-- /.container -->
     </script>
@@ -123,9 +124,9 @@
     <script type="text/javascript" id="web-app-boostrap">
       var bootModule = angular.module('bootModule',[]);
       bootModule.config(['$routeProvider',function($routeProvider){
-        $routeProvider.when('/Ok!',{
-          templateUrl: 'Ok!',
-          controller: 'Ok!Controller'
+        $routeProvider.when('/Heappit',{
+          templateUrl: 'Heappit',
+          controller: 'HeappitController'
         }).when('/signin',{
           templateUrl: 'signin',
           controller: 'signinController'
@@ -134,9 +135,18 @@
           templateUrl: 'jumbotron-narrow',
           controller: 'jumbotronNarrowController'
         })
-        .otherwise({redirectTo:'/Ok!'});
+        .otherwise({redirectTo:'/Heappit'});
       }]);
-      bootModule.controller('Ok!Controller',['$scope',function($scope){
+      bootModule.controller('HeappitController',['$scope','$http','$rootScope',function($scope,$http,$rootScope){
+        $rootScope.heap = [];
+        $http
+          .get('/heap')
+          .success(function(d,s,h,c){
+            $rootScope.heap = d.heap;
+          })
+          .error(function(d,s,h,c){
+
+          })
       }]);
       bootModule.controller('bootController',['$scope',function($scope){
         init();
@@ -144,8 +154,8 @@
           var boot = {
             description: 'This is the description.',
             author: 'Braun Goodson',
-            title: 'Ok!',
-            name: 'Ok!',
+            title: 'Heappit',
+            name: 'Heappit',
           };
           $scope.boot = boot; 
         }
