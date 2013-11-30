@@ -6,7 +6,12 @@ heapSort(a());
 console.log(a());
 },50);
 */
-
+module.exports = function () {
+  return {
+    HeapSort: heapSort,
+    Heap: heap
+  }
+}
 function heapSort (A) {
   buildMaxHeap(A);
   for (var i = (A.length - 1); i >= 1; --i) {

@@ -1,11 +1,9 @@
-/**/
+/*
+ * */
 
 //
 var fs = require('fs');
-var fileNames = ['app/index.html'
-,'app/css/starter-template.css'
-,'app/css/signin.css'
-];
+var fileNames = ['app/index.html','app/css/starter-template.css','app/css/signin.css'];
 var files = [];
 for (var i in fileNames) {
   (function(file){fs.readFile(file,function(e,d){
@@ -22,6 +20,12 @@ for (var i in fileNames) {
 //
 var users = [];
 users['braun'] = {name:'braun',password:'braun',data:null,getUser:function(){return{name:this.name,data:this.data}}};
+
+//
+var heapsort = require('./heapsort.js')();
+var Heap = heapsort.Heap;
+var HeapSort = heapsort.HeapSort;
+var heap = new Heap([]);
 
 //
 var mario = require('mario-mario');
@@ -51,6 +55,20 @@ mario.plumbing({
           }
         }
         return r.send(403);
+      },
+      '/heap': function (q,r) {
+        return r.setHeader('Content-Type','application/json')
+        + r.send(200,{heap:heap()});
+      },
+      '/heap/:number': function (q,r) {
+        if (q.params.number) {
+          heap().push(parseInt(q.params.number));
+          HeapSort(heap());
+          return r.setHeader('Content-Type','application/json')
+          + r.send(200,{heap:heap()});
+        } else {
+          return r.send(404);
+        }
       }
     }
   }
